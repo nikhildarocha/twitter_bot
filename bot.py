@@ -1,6 +1,10 @@
 import tweepy
 import time
 
+consumer_key = 'Hq6m9WM7gwt1wPYZ2PZFeJFXV'
+consumer_secret = '9Y7XNfNTU9GLZpEMOMste4MQLlliFaQvHV3kIJg8u8BDYhzgmu'
+key = '1216427695673790465-ErMuJ1qdl5MzWEah8knf6Z1RGR9q3B'
+secret = '8jlzHWuWwYkkhCM2s3sIAQwcYLqUJ6AHA9m0pCIYFdjAJ'
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(key, secret)
@@ -32,11 +36,13 @@ def reply():
         if '#randomtweet' in tweet.full_text.lower():
             print("Replied to ID" + str(tweet.id))
             api.update_status("@" + tweet.user.screen_name + " Hello", tweet.id)
+            api.create_favorite(tweet.id)
+            api.retweet(tweet.id)
             store_last_seen(FILE_NAME, tweet.id)
     
 
 
 while True:
     reply()
-    time.sleep(2)
+    time.sleep(15)
     
